@@ -12,7 +12,7 @@ WIFIUP adalah sistem formulir online yang dirancang untuk mengumpulkan dan menge
 - Timestamp Otomatis: Menyertakan cap waktu otomatis pada setiap entri data, memastikan setiap pengisian tercatat dengan waktu yang tepat.
 - Penyimpanan Data dalam JSON: Data disimpan dalam format JSON, memudahkan pengelolaan dan akses tanpa memerlukan database.
 
-# Teknik Penggunaan
+# Teknik Penggunaan - USER
 
 1.	Mengisi Formulir:
 - Pengguna mengakses URL formulir online.
@@ -25,6 +25,10 @@ WIFIUP adalah sistem formulir online yang dirancang untuk mengumpulkan dan menge
 
 3. Melihat Laporan:
 - Admin atau pengguna dapat mengakses halaman view.html untuk melihat semua data yang telah diisikan dalam bentuk tabel yang rapi dan terstruktur.
+
+# Teknik Penggunaan - Programmer / IT
+
+- pada bagian post.php , sesuaikan exampledomain.com dan nomer whatsapp anda dimana notifikasi akan dikirimkan
 
 # Cara Menjalankan di Web Server
 
