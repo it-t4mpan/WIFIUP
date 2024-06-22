@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan WIFIUP</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .report-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1200px;
+            overflow-x: auto;
+        }
+        .report-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .table-responsive {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="report-container">
+    <h1>Laporan Data WIFIUP</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Nama</th>
+                    <th>NRK</th>
+                    <th>Tempat Tugas</th>
+                    <th>Foto</th>
+                </tr>
+            </thead>
+            <tbody id="data-table-body">
+                <!-- Data will be populated here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('get_data.php')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('data-table-body');
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.timestamp}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.nrk}</td>
+                        <td>${item.tempat_tugas}</td>
+                        <td><img src="${item.foto}" alt="Foto" class="img-fluid" style="max-width: 100px;"></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+    });
+</script>
+
+</body>
+</html>
