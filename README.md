@@ -75,7 +75,7 @@ WIFIUP adalah sistem formulir online yang dirancang untuk mengumpulkan dan menge
 
 	2. Menyiapkan Direktori:
 
-	- Buat direktori baru dalam htdocs di dalam folder instalasi XAMPP (contoh: C:\xampp\htdocs\e-registration-pro).
+	- Buat direktori baru dalam htdocs di dalam folder instalasi XAMPP (contoh: C:\xampp\htdocs\wifiup).
 	- Salin semua file yang diperlukan ke direktori ini.
 
 	3. Mengakses Formulir:
