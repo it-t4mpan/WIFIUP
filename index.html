@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>-[ WIFIUP ]-</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Menggunakan min-height untuk memastikan footer tetap di bagian bawah */
+            margin: 0;
+            padding: 20px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+            position: fixed; /* Menggunakan position fixed untuk footer tetap di bagian bawah layar */
+            bottom: 0;
+            background-color: #f8f9fa; /* Menambahkan warna latar belakang untuk footer */
+            padding: 10px 0; /* Padding atas dan bawah untuk memberi ruang di dalam footer */
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h1 class="text-center">-[ WIFIUP ]-</h1>
+    <label class="text-center"> WhatsApp Integrated Form for Upacara and Presensi</label>
+    <form id="testForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="nama">Nama Lengkap*</label>
+            <input type="text" id="nama" name="nama" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="nrk">Nrk*</label>
+            <input type="text" id="nrk" name="nrk" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="tempat-tugas">Tempat Tugas*</label>
+            <select id="tempat-tugas" name="tempat_tugas" class="form-control" required>
+                <option value="pustu 1">KELURAHAN KUBURAN</option>
+                <option value="pustu 2">KELURAHAN POHON ANGKER</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="foto">Upload Foto* (.jpg, .jpeg)</label>
+            <input type="file" id="foto" name="foto" class="form-control-file" accept=".jpg, .jpeg" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<footer>
+    &copy; 2024 - WIFIUP Project - it-t4mpan. All rights reserved.
+</footer>
+
+<script>
+    document.getElementById('testForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+        fetch('post.php', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const whatsappUrl = data.whatsapp_url;
+                window.location.href = whatsappUrl;
+                setTimeout(() => {
+                    window.location.href = 'view.html';
+                }, 1000); // Wait for 1 second before redirecting to view.html
+            } else {
+                alert('Data submission failed!');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
