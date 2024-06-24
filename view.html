@@ -31,12 +31,54 @@
         .table-responsive {
             margin-top: 20px;
         }
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-container input {
+            width: 50%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .print-button {
+            display: block;
+            margin: 0 auto 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .report-container, .report-container * {
+                visibility: visible;
+            }
+            .report-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .report-container .print-button, .report-container .search-container {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="report-container">
     <h1>Laporan Data WIFIUP</h1>
+    <button class="print-button" onclick="window.print()">Print</button>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Cari data...">
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
@@ -56,6 +98,17 @@
 </div>
 
 <script>
+    function escapeHtml(text) {
+        var map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         fetch('get_data.php')
             .then(response => response.json())
@@ -64,15 +117,25 @@
                 data.forEach(item => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${item.timestamp}</td>
-                        <td>${item.nama}</td>
-                        <td>${item.nrk}</td>
-                        <td>${item.tempat_tugas}</td>
-                        <td><img src="${item.foto}" alt="Foto" class="img-fluid" style="max-width: 100px;"></td>
+                        <td>${escapeHtml(item.timestamp)}</td>
+                        <td>${escapeHtml(item.nama)}</td>
+                        <td>${escapeHtml(item.nrk)}</td>
+                        <td>${escapeHtml(item.tempat_tugas)}</td>
+                        <td><img src="${escapeHtml(item.foto)}" alt="Foto" class="img-fluid" style="max-width: 100px;"></td>
                     `;
                     tableBody.appendChild(row);
                 });
             });
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#data-table-body tr');
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase()).join(' ');
+                row.style.display = rowText.includes(searchValue) ? '' : 'none';
+            });
+        });
     });
 </script>
 
