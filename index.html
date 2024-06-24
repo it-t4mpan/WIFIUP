@@ -11,9 +11,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Menggunakan min-height untuk memastikan footer tetap di bagian bawah */
+            height: 100vh;
             margin: 0;
-            padding: 20px;
         }
         .form-container {
             background-color: #fff;
@@ -22,15 +21,6 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
-        }
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            width: 100%;
-            position: fixed; /* Menggunakan position fixed untuk footer tetap di bagian bawah layar */
-            bottom: 0;
-            background-color: #f8f9fa; /* Menambahkan warna latar belakang untuk footer */
-            padding: 10px 0; /* Padding atas dan bawah untuk memberi ruang di dalam footer */
         }
     </style>
 </head>
@@ -51,8 +41,8 @@
         <div class="form-group">
             <label for="tempat-tugas">Tempat Tugas*</label>
             <select id="tempat-tugas" name="tempat_tugas" class="form-control" required>
-                <option value="pustu 1">KELURAHAN KUBURAN</option>
-                <option value="pustu 2">KELURAHAN POHON ANGKER</option>
+                <option value="pustu 1">Pustu 1</option>
+                <option value="pustu 2">Pustu 2</option>
             </select>
         </div>
         <div class="form-group">
@@ -64,10 +54,6 @@
         </div>
     </form>
 </div>
-
-<footer>
-    &copy; 2024 - WIFIUP Project - it-t4mpan. All rights reserved.
-</footer>
 
 <script>
     document.getElementById('testForm').addEventListener('submit', function(event) {
@@ -84,10 +70,13 @@
                 window.location.href = whatsappUrl;
                 setTimeout(() => {
                     window.location.href = 'view.html';
-                }, 1000); // Wait for 1 second before redirecting to view.html
+                }, 1000);
             } else {
-                alert('Data submission failed!');
+                alert('Gagal mengirim data. Silakan coba lagi.');
             }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan. Silakan coba lagi.');
         });
     });
 </script>
